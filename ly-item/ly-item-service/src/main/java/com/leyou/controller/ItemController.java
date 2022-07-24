@@ -1,5 +1,7 @@
 package com.leyou.controller;
 
+import com.leyou.enums.ExceptionEnum;
+import com.leyou.exception.LyException;
 import com.leyou.pojo.Item;
 import com.leyou.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,7 @@ public class ItemController {
     @PostMapping("item")
     public ResponseEntity<Item> saveItem(Item item){
         if(item.getPrice()== null){
-            throw new RuntimeException("价格不能为空");
+            throw new LyException(ExceptionEnum.PRICE_CANNOT_BE_NULL);
         }
         Item result = itemService.saveItem(item);
         return ResponseEntity.status(HttpStatus.CREATED).body(result);
